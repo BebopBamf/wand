@@ -93,7 +93,7 @@ services:
               "--database-user", "${POSTGRES_USER}", 
               "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
-  houdini_blizzard:
+  houdini_bones:
     image: houdini
     restart: always
     networks:
@@ -109,13 +109,13 @@ services:
       - redis:redis
       - houdini_login:login
     entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
-    command: ["-id", "3100", "--name", "blizzard", "--port", "9875", "--lang", "en",
+    command: ["-id", "3100", "--name", "bones", "--port", "9875", "--lang", "en",
               "--redis-address", "redis",
               "--database-address", "db",
               "--database-user", "${POSTGRES_USER}", 
               "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
-  houdini_glaciar:
+  houdini_barnacles:
     image: houdini
     restart: always
     networks:
@@ -131,57 +131,13 @@ services:
       - redis:redis
       - houdini_login:login
     entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
-    command: ["-id", "3101", "--name", "glaciar", "--port", "9876", "--lang", "es",
+    command: ["-id", "3101", "--name", "barnacles", "--port", "9876", "--lang", "en",
               "--redis-address", "redis",
               "--database-address", "db",
               "--database-user", "${POSTGRES_USER}", 
               "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
-  houdini_avalanche:
-    image: houdini
-    restart: always
-    networks:
-      - wand
-    ports:
-      - 9877:9877
-    volumes:
-      - ./houdini:/usr/src/houdini
-    depends_on:
-      - houdini_login
-    links:
-      - db:db
-      - redis:redis
-      - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
-    command: ["-id", "3102", "--name", "avalanche", "--port", "9877", "--lang", "pt",
-              "--redis-address", "redis",
-              "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
-              "--database-password", "${POSTGRES_PASSWORD}"]
-  houdini_yeti:
-    image: houdini
-    restart: always
-    networks:
-      - wand
-    ports:
-      - 9878:9878
-    volumes:
-      - ./houdini:/usr/src/houdini
-    depends_on:
-      - houdini_login
-    links:
-      - db:db
-      - redis:redis
-      - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
-    command: ["-id", "3103", "--name", "yeti", "--port", "9878", "--lang", "fr",
-              "--redis-address", "redis",
-              "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
-              "--database-password", "${POSTGRES_PASSWORD}"]
-  dash:
+ dash:
     build: ./dash
     restart: always
     networks:
